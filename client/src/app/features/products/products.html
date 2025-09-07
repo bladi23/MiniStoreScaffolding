@@ -1,0 +1,47 @@
+<h2>Productos</h2>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<table *ngIf="products.length" class="products-table">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Precio</th>
+			<th>Stock</th>
+			<th>Categoría</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let p of products">
+			<td>{{ p.name }}</td>
+			<td>{{ p.price | currency }}</td>
+			<td>{{ p.stock }}</td>
+			<td>{{ p.categoryName }}</td>
+		</tr>
+	</tbody>
+</table>
+<div *ngIf="!products.length && !error">No hay productos para mostrar.</div>
+
+<h3>Agregar producto</h3>
+<form (ngSubmit)="addProduct()" #productForm="ngForm">
+	<div>
+		<label for="name">Nombre:</label>
+		<input id="name" name="name" [(ngModel)]="form.name" required placeholder="Nombre del producto" title="Nombre del producto" />
+	</div>
+	<div>
+		<label for="price">Precio:</label>
+		<input id="price" name="price" type="number" [(ngModel)]="form.price" required min="0.01" step="0.01" placeholder="Precio" title="Precio" />
+	</div>
+	<div>
+		<label for="stock">Stock:</label>
+		<input id="stock" name="stock" type="number" [(ngModel)]="form.stock" required min="0" placeholder="Stock" title="Stock" />
+	</div>
+	<div>
+			<label for="categoryId">Categoría:</label>
+			<select id="categoryId" name="categoryId" [(ngModel)]="form.categoryId" required title="Categoría">
+				<option value="" disabled selected>Seleccione...</option>
+				<option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+			</select>
+	</div>
+	<div *ngIf="formError" class="error">{{ formError }}</div>
+	<button type="submit">Agregar</button>
+</form>
