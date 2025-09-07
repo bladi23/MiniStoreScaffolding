@@ -29,6 +29,7 @@
             "styles": [
               "src/styles.scss"
             ],
+            "polyfills": ["src/polyfills.ts"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
